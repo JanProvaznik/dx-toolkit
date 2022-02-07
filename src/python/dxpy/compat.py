@@ -223,10 +223,13 @@ def unwrap_stream(stream_name):
         if wrapped_stream:
             setattr(sys, stream_name, wrapped_stream)
 
-# Support FIPS enabled Python
+# Support FIPS enabled Python as of 3.9
 def md5_hasher():
-    try:
-        md5_hasher = hashlib.new('md5', usedforsecurity=False)
-    except:
+    if sys.version_info >= (3, 9):
+        try:
+            md5_hasher = hashlib.new('md5', usedforsecurity=False)
+        except:
+            md5_hasher = hashlib.new('md5')
+    else:
         md5_hasher = hashlib.new('md5')
     return md5_hasher
