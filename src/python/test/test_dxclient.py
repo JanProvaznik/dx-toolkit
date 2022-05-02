@@ -1167,6 +1167,7 @@ class TestDXClient(DXTestCase):
     @unittest.skipUnless(testutil.TEST_RUN_JOBS, "Skipping test that would run jobs")
     def test_dx_run_allow_ssh(self):
         with self.configure_ssh() as wd:
+            print("Fake changes here")
             applet_id = dxpy.api.applet_new({"project": self.project,
                                          "dxapi": "1.0.0",
                                          "runSpec": {"interpreter": "bash",
