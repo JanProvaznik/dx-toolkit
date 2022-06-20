@@ -2521,8 +2521,6 @@ def wait(args):
 
 def build(args):
     sys.argv = ['dx build'] + sys.argv[2:]
-    print("here")
-    print(args.nextflow)
 
     def get_source_exec_desc(source_exec_path):
         """
@@ -2697,7 +2695,8 @@ def build(args):
             args.mode = get_mode(args)
 
         handle_arg_conflicts(args)
-
+        if args.nextflow:
+            print("nextflow applet build...")
         if args.mode in ("app", "applet"):
             dx_build_app.build(args)
         elif args.mode in ("workflow", "globalworkflow"):
