@@ -2521,6 +2521,8 @@ def wait(args):
 
 def build(args):
     sys.argv = ['dx build'] + sys.argv[2:]
+    print("here")
+    print(args.nextflow)
 
     def get_source_exec_desc(source_exec_path):
         """
