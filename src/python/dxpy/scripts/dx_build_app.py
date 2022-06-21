@@ -880,7 +880,7 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
                 ensure_upload=ensure_upload,
                 force_symlinks=force_symlinks,
                 brief=brief,
-                resources_dir=Path(src_dir).parent.absolute()) if not dry_run else []
+                resources_dir=str(Path(src_dir).parent.absolute())) if not dry_run else []
 
         # TODO: Clean up these applets if the app build fails.
         applet_ids_by_region = {}
