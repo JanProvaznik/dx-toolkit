@@ -2,7 +2,7 @@ import os
 
 NF_PATH_LOCAL = ".dx_nextflow/"
 DXAPP = ".dx_nextflow/dxapp.json"
-EXEC = ".dx_nextflow/"
+EXEC = ".dx_nextflow/nextflow.sh"
 EXEC_CONTENT = '''
 #!/usr/bin/env bash
 apt install wget -y
@@ -25,7 +25,7 @@ DXAPP_CONTENT = '''
   "outputSpec": [
   ],
   "runSpec": {
-    "interpreter": "python3",
+    "interpreter": "bash",
     "execDepends": [
       {
         "name": "ipython3"
@@ -67,11 +67,13 @@ DXAPP_CONTENT = '''
 }
 '''
 def prepare_nextflow():
+    print("here")
     if not os.path.exists(NF_PATH_LOCAL):
         os.makedirs(NF_PATH_LOCAL)
-
+    print("here2")
     with open(DXAPP, "w") as dxapp:
         dxapp.write(DXAPP_CONTENT)
-
+    print("here3")
     with open(EXEC, "w") as exec:
         exec.write(EXEC_CONTENT)
+    print("here4")
