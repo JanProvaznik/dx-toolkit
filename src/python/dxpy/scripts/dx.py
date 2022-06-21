@@ -2697,7 +2697,7 @@ def build(args):
 
         handle_arg_conflicts(args)
         if args.nextflow:
-            prepare_nextflow()
+            nextflow_builder.prepare_nextflow()
             print(args.src_dir)
             print("nextflow applet build...")
         elif args.mode in ("app", "applet"):
