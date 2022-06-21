@@ -73,8 +73,8 @@ def write_exec(repo, tag):
             git checkout {tag}
             popd
             '''
-    exec_content.replace(GCLONE_PLACEHOLDER, g_clone)
-    exec_content.replace(GCHECKOUT_PLACEHOLDER, g_checkout)
+    exec_content=exec_content.replace(GCLONE_PLACEHOLDER, g_clone).replace(GCHECKOUT_PLACEHOLDER, g_checkout)
+
     with open(EXEC, "w") as exec:
         exec.write(exec_content)
 
