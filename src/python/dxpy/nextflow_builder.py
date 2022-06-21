@@ -40,7 +40,7 @@ DXAPP_CONTENT = '''
     ],
     "distribution": "Ubuntu",
     "release": "20.04",
-    "file": "src/nextflow.sh",
+    "file": "nextflow.sh",
     "version": "0"
   },
   "regionalOptions": {
