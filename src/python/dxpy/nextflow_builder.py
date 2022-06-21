@@ -58,14 +58,12 @@ DXAPP_CONTENT = '''
   "ignoreReuse": true
 }
 '''
-def prepare_nextflow():
-    print("here")
+def prepare_nextflow(args):
+    print(args._repository)
+    print(args._tag)
     if not os.path.exists(NF_PATH_LOCAL):
         os.makedirs(NF_PATH_LOCAL)
-    print("here2")
     with open(DXAPP, "w") as dxapp:
         dxapp.write(DXAPP_CONTENT)
-    print("here3")
     with open(EXEC, "w") as exec:
         exec.write(EXEC_CONTENT)
-    print("here4")

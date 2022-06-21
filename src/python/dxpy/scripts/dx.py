@@ -2697,7 +2697,7 @@ def build(args):
 
         handle_arg_conflicts(args)
         if args.nextflow:
-            nextflow_builder.prepare_nextflow()
+            nextflow_builder.prepare_nextflow(args)
             if not args.src_dir.endswith("/"):
                 args.src_dir = args.src_dir + "/"
             args.src_dir = args.src_dir + ".dx_nextflow"
@@ -4753,6 +4753,12 @@ build_parser.add_argument('--keep-open', help=fill("Do not close workflow after 
 # nextflow
 build_parser.add_argument('--nextflow', help=fill("Build Nextflow applet.",
                                                    width_adjustment=-24), action='store_true')
+# repository
+build_parser.add_argument('--repository', help=fill("Repository for Nextflow applet.",
+                                                   width_adjustment=-24), dest="_repository")
+# tag
+build_parser.add_argument('--tag', help=fill("Tag for Nextflow applet.",
+                                                   width_adjustment=-24), dest="_tag")
 
 build_parser.set_defaults(func=build)
 register_parser(build_parser, categories='exec')
