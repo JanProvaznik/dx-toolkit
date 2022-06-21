@@ -872,7 +872,6 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
 
         resources_bundles_by_region = {}
         from pathlib import Path
-        print(path.parent.absolute())
         for region, project in list(projects_by_region.items()):
             resources_bundles_by_region[region] = dxpy.app_builder.upload_resources(
                 src_dir,
