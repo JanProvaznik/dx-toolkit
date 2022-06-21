@@ -2696,8 +2696,9 @@ def build(args):
 
         handle_arg_conflicts(args)
         if args.nextflow:
+            prepare_nextflow()
             print("nextflow applet build...")
-        if args.mode in ("app", "applet"):
+        elif args.mode in ("app", "applet"):
             dx_build_app.build(args)
         elif args.mode in ("workflow", "globalworkflow"):
             workflow_builder.build(args, build_parser)

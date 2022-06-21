@@ -192,7 +192,7 @@ def _fix_perm_filter(tar_obj):
     return tar_obj
 
 
-def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, force_symlinks=False, brief=False):
+def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, force_symlinks=False, brief=False, resources_dir=None):
     """
     :param ensure_upload: If True, will bypass checksum of resources directory
                           and upload resources bundle unconditionally;
@@ -215,7 +215,13 @@ def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, for
     object, and returns a list describing a single bundled dependency in
     the form expected by the ``bundledDepends`` field of a run
     specification. Returns an empty list, if no archive was created.
+
+    :param resources_dir: Location of resources folder
+    :type resources_dir: str
     """
+    if not resources_dir:
+        resources_dir = os.path.join(src_dir, "resources")
+
     applet_spec = _get_applet_spec(src_dir)
 
     if project is None:
@@ -224,7 +230,6 @@ def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, for
         dest_project = project
         applet_spec['project'] = project
 
-    resources_dir = os.path.join(src_dir, "resources")
     if os.path.exists(resources_dir) and len(os.listdir(resources_dir)) > 0:
         target_folder = applet_spec['folder'] if 'folder' in applet_spec else folder
 

@@ -871,6 +871,8 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
             raise dxpy.app_builder.AppBuilderException(error_message)
 
         resources_bundles_by_region = {}
+        from pathlib import Path
+        print(path.parent.absolute())
         for region, project in list(projects_by_region.items()):
             resources_bundles_by_region[region] = dxpy.app_builder.upload_resources(
                 src_dir,
@@ -878,7 +880,8 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
                 folder=override_folder,
                 ensure_upload=ensure_upload,
                 force_symlinks=force_symlinks,
-                brief=brief) if not dry_run else []
+                brief=brief,
+                resources_dir=Path(src_dir).parent.absolute()) if not dry_run else []
 
         # TODO: Clean up these applets if the app build fails.
         applet_ids_by_region = {}
