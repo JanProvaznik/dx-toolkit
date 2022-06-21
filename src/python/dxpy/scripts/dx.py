@@ -2698,9 +2698,12 @@ def build(args):
         handle_arg_conflicts(args)
         if args.nextflow:
             nextflow_builder.prepare_nextflow()
+            if not args.src_dir.endswith("/"):
+                args.src_dir = args.src_dir + "/"
+            args.src_dir = args.src_dir + ".dx_nextflow"
             print(args.src_dir)
             print("nextflow applet build...")
-        elif args.mode in ("app", "applet"):
+        if args.mode in ("app", "applet"):
             dx_build_app.build(args)
         elif args.mode in ("workflow", "globalworkflow"):
             workflow_builder.build(args, build_parser)
