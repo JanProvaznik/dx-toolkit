@@ -5,7 +5,7 @@ DXAPP = ".dx_nextflow/dxapp.json"
 EXEC = ".dx_nextflow/nextflow.sh"
 EXEC_CONTENT = '''
 # #!/usr/bin/env bash
-wget -q0- https://get.nextflow.io | bash
+curl -s "https://get.nextflow.io" | bash
 mv nextflow /usr/bin
 
 nextflow run /
