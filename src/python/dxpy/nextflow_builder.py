@@ -4,8 +4,8 @@ NF_PATH_LOCAL = ".dx_nextflow/"
 DXAPP = ".dx_nextflow/dxapp.json"
 EXEC = ".dx_nextflow/nextflow.sh"
 EXEC_CONTENT = '''
-# #!/usr/bin/env bash
-curl -s "https://get.nextflow.io" | bash
+#!/usr/bin/env bash
+curl -s https://get.nextflow.io | bash
 mv nextflow /usr/bin
 
 nextflow run /
@@ -24,7 +24,7 @@ DXAPP_CONTENT = '''
   "outputSpec": [
   ],
   "runSpec": {
-    "interpreter": "python3",
+    "interpreter": "bash",
     "execDepends": [
       {
         "name": "default-jre"
