@@ -36,7 +36,7 @@ decode_command_line_args()
 import dxpy
 from dxpy.scripts import dx_build_app
 from dxpy import workflow_builder
-from dxpy import nextflow_builder
+from dxpy.nextflow import nextflow_builder
 from dxpy.exceptions import PermissionDenied, InvalidState, ResourceNotFound
 
 from ..cli import try_call, prompt_for_yn, INTERACTIVE_CLI

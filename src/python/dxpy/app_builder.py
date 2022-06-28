@@ -229,7 +229,9 @@ def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, for
     else:
         dest_project = project
         applet_spec['project'] = project
-
+    print("below")
+    print(applet_spec)
+    print(folder)
     if os.path.exists(resources_dir) and len(os.listdir(resources_dir)) > 0:
         target_folder = applet_spec['folder'] if 'folder' in applet_spec else folder
 
