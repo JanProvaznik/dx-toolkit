@@ -1,12 +1,12 @@
 import os
-from dxpy.nextflow import nextflow_templates
+from dxpy.nextflow import *
 NF_PATH_LOCAL = ".dx_nextflow/"
 DXAPP = "{}dxapp.json".format(NF_PATH_LOCAL)
 EXEC = "{}src/nextflow.sh".format(NF_PATH_LOCAL)
-DXAPP_CONTENT = nextflow_templates.get_nextflow_dxapp()
+DXAPP_CONTENT = get_nextflow_dxapp()
 
 def write_exec(repo, tag):
-    exec_content = nextflow_templates.get_nextflow_src()
+    exec_content = get_nextflow_src()
     with open(EXEC, "w") as exec:
         exec.write(exec_content)
 
