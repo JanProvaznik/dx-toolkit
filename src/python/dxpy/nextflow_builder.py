@@ -46,8 +46,7 @@ DXAPP_CONTENT = '''
     ],
     "project": "CONTRIBUTE",
     "allProjects": "VIEW"
-  },
-  "ignoreReuse": true
+  }
 }
 '''
 
@@ -81,6 +80,7 @@ def write_exec(repo, tag):
 def write_dxapp():
     with open(DXAPP, "w") as dxapp:
         dxapp.write(DXAPP_CONTENT)
+
 def prepare_nextflow(args):
     if not os.path.exists(NF_PATH_LOCAL):
         os.makedirs(NF_PATH_LOCAL)
