@@ -1,5 +1,5 @@
 import os
-from dxpy.nextflow import *
+from dxpy.nextflow.nextflow_templates import *
 NF_PATH_LOCAL = ".dx_nextflow/"
 DXAPP = "{}dxapp.json".format(NF_PATH_LOCAL)
 EXEC = "{}src/nextflow.sh".format(NF_PATH_LOCAL)
