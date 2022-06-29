@@ -5,7 +5,7 @@ DXAPP = "{}dxapp.json".format(NF_PATH_LOCAL)
 EXEC = "{}src/nextflow.sh".format(NF_PATH_LOCAL)
 DXAPP_CONTENT = get_nextflow_dxapp()
 
-def write_exec(repo, tag):
+def write_exec():
     exec_content = get_nextflow_src()
     print(EXEC)
     print(exec_content)
@@ -20,4 +20,4 @@ def prepare_nextflow(args):
     if not os.path.exists(NF_PATH_LOCAL):
         os.makedirs(NF_PATH_LOCAL)
     write_dxapp()
-    write_exec(args._repository, args._tag)
+    write_exec()
