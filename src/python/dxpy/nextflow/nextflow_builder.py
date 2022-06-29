@@ -7,6 +7,8 @@ DXAPP_CONTENT = get_nextflow_dxapp()
 
 def write_exec(repo, tag):
     exec_content = get_nextflow_src()
+    print(EXEC)
+    print(exec_content)
     with open(EXEC, "w") as exec:
         exec.write(exec_content)
 
