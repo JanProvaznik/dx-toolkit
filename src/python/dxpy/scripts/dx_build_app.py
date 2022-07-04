@@ -38,6 +38,7 @@ import dxpy.executable_builder
 from .. import logger
 from pathlib import Path
 
+from dxpy.nextflow.nextflow_builder import *
 from ..utils import json_load_raise_on_duplicates
 from ..utils.resolver import resolve_path, check_folder_exists, ResolutionError, is_container_id
 from ..utils.completer import LocalCompleter
@@ -994,7 +995,7 @@ def _build_app(args, extra_args):
     if args.nextflow:
         resources_dir = args.src_dir
         # TODO: changes args dir.
-        args.src_dir = nextflow_builder.prepare_nextflow(args)# create tmp dir and create dxapp + src
+        args.src_dir = prepare_nextflow(args)# create tmp dir and create dxapp + src
 
     if args._from:
         # BUILD FROM EXISTING APPLET
