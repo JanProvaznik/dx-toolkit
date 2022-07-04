@@ -8,10 +8,10 @@ DXAPP_CONTENT = get_nextflow_dxapp()
 def write_exec(folder):
     exec_file = f"{folder}/nextflow.sh"
     exec_content = get_nextflow_src()
-    print(EXEC)
+    print(exec_file)
     print(exec_content)
     os.makedirs(os.path.dirname(os.path.abspath(exec_file)), exist_ok=True)
-    with open(EXEC, "w") as exec:
+    with open(exec_file, "w") as exec:
         exec.write(exec_content)
 
 
