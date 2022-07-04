@@ -382,7 +382,7 @@ def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, for
                 dx_resource_archive = existing_resources
             else:
 
-                logger.debug("Uploading in " + src_dir)
+                logger.warning("Uploading in " + src_dir)
                 # We need to compress the tar that we've created
 
 
