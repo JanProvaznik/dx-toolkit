@@ -6,7 +6,7 @@ DXAPP_CONTENT = get_nextflow_dxapp()
 
 
 def write_exec(folder):
-    exec_file = f"{folder}/nextflow.sh}"
+    exec_file = f"{folder}/nextflow.sh"
     exec_content = get_nextflow_src()
     print(EXEC)
     print(exec_content)
