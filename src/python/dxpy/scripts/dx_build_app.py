@@ -36,6 +36,7 @@ import dxpy.app_builder
 import dxpy.workflow_builder
 import dxpy.executable_builder
 from .. import logger
+from pathlib import Path
 
 from ..utils import json_load_raise_on_duplicates
 from ..utils.resolver import resolve_path, check_folder_exists, ResolutionError, is_container_id
@@ -745,7 +746,7 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
                              do_parallel_build=True, do_version_autonumbering=True, do_try_update=True,
                              dx_toolkit_autodep="stable", do_check_syntax=True, dry_run=False,
                              return_object_dump=False, confirm=True, ensure_upload=False, force_symlinks=False,
-                             region=None, brief=False, **kwargs):
+                             region=None, brief=False, resources_dir=None, **kwargs):
     dxpy.app_builder.build(src_dir, parallel_build=do_parallel_build)
     app_json = _parse_app_spec(src_dir)
 
@@ -871,7 +872,6 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
             raise dxpy.app_builder.AppBuilderException(error_message)
 
         resources_bundles_by_region = {}
-        from pathlib import Path
         for region, project in list(projects_by_region.items()):
             resources_bundles_by_region[region] = dxpy.app_builder.upload_resources(
                 src_dir,
@@ -880,7 +880,7 @@ def build_and_upload_locally(src_dir, mode, overwrite=False, archive=False, publ
                 ensure_upload=ensure_upload,
                 force_symlinks=force_symlinks,
                 brief=brief,
-                resources_dir=str(Path(src_dir).parent.absolute())) if not dry_run else []
+                resources_dir=resources_dir) if not dry_run else []
 
         # TODO: Clean up these applets if the app build fails.
         applet_ids_by_region = {}
@@ -989,6 +989,12 @@ def _build_app(args, extra_args):
     TODO: remote app builds still return None, but we should fix this.
 
     """
+    # TODO: nextflow changes
+    resources_dir = None
+    if args.nextflow:
+        resources_dir = args.src_dir
+        # TODO: changes args dir.
+        args.src_dir = nextflow_builder.prepare_nextflow(args)# create tmp dir and create dxapp + src
 
     if args._from:
         # BUILD FROM EXISTING APPLET
@@ -1020,7 +1026,7 @@ def _build_app(args, extra_args):
 
     if not args.remote:
         # LOCAL BUILD
-
+        # change nextflow HERE TODO:
         try:
             output = build_and_upload_locally(
                 args.src_dir,
@@ -1044,6 +1050,7 @@ def _build_app(args, extra_args):
                 return_object_dump=args.json,
                 region=args.region,
                 brief=args.brief,
+                resources_dir=resources_dir,
                 **extra_args
                 )
 

@@ -2697,7 +2697,7 @@ def build(args):
 
         handle_arg_conflicts(args)
         if args.nextflow:
-            nextflow_builder.prepare_nextflow(args)
+            build_folder = nextflow_builder.prepare_nextflow(args)
             if not args.src_dir.endswith("/"):
                 args.src_dir = args.src_dir + "/"
             args.src_dir = args.src_dir + ".dx_nextflow"

@@ -21,7 +21,7 @@ def get_nextflow_dxapp():
             ],
             "distribution": "Ubuntu",
             "release": "20.04",
-            "file": "src/nextflow.sh",
+            "file": "nextflow.sh",
             "version": "0"
         },
         "regionalOptions": {
