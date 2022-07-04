@@ -16,7 +16,7 @@ def write_exec(folder):
 
 
 def write_dxapp(folder):
-    dxapp_file = f"{folder}/dxapp.json}"
+    dxapp_file = f"{folder}/dxapp.json"
     with open(dxapp_file, "w") as dxapp:
         dxapp.write(DXAPP_CONTENT)
 
