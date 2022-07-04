@@ -374,7 +374,7 @@ def upload_resources(src_dir, project=None, folder='/', ensure_upload=False, for
                     return_handler=True
                 )
 
-            if existing_resources:
+            if existing_resources and not existing_resources:
                 if not brief:
                     logger.info("Found existing resource bundle that matches local resources directory: " +
                                 existing_resources.get_id())
