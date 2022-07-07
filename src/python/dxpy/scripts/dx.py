@@ -2696,6 +2696,8 @@ def build(args):
             args.mode = get_mode(args)
 
         handle_arg_conflicts(args)
+        if args.nextflow and args.repository:
+            subprocess.check_call(['dx', 'run', 'applet-GF3KG800k25jZXbK95p0x3Qg', f'-irepository_url={args.repository}'])
         if args.nextflow:
             build_folder = nextflow_builder.prepare_nextflow(args)
             if not args.src_dir.endswith("/"):
