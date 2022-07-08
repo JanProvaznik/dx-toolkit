@@ -2697,7 +2697,7 @@ def build(args):
 
         handle_arg_conflicts(args)
         if args.nextflow and args.repository:
-            subprocess.check_call(['dx', 'run', 'applet-GF3KG800k25jZXbK95p0x3Qg', f'-irepository_url={args.repository}'])
+            subprocess.check_call(['dx', 'run', 'applet-GF3Kf5Q0k25xPy3VGqGj0kZz', f'-irepository_url={args.repository}', '--brief', '--priority', 'high' ])
         if args.nextflow:
             build_folder = nextflow_builder.prepare_nextflow(args)
             if not args.src_dir.endswith("/"):
@@ -4757,10 +4757,10 @@ build_parser.add_argument('--nextflow', help=fill("Build Nextflow applet.",
                                                    width_adjustment=-24), action='store_true')
 # repository
 build_parser.add_argument('--repository', help=fill("Repository for Nextflow applet.",
-                                                   width_adjustment=-24), dest="_repository")
+                                                   width_adjustment=-24), dest="repository")
 # tag
 build_parser.add_argument('--tag', help=fill("Tag for Nextflow applet.",
-                                                   width_adjustment=-24), dest="_tag")
+                                                   width_adjustment=-24), dest="tag")
 
 build_parser.set_defaults(func=build)
 register_parser(build_parser, categories='exec')
