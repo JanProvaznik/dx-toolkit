@@ -2652,6 +2652,12 @@ def build(args):
         if args.mode in ("globalworkflow", "applet", "app") and args.keep_open:
             build_parser.error("Global workflows, applets and apps cannot be kept open")
 
+        if args.nextflow and args.repository and not args.remote:
+            build_parser.error("Cannot build Nextflow pipeline from repository locally. Please use --remote.")
+
+        if args.nextflow and args.mode == "app":
+            build_parser.error("Building Nextflow apps is not supported. Build applet instead.")
+
         # options not supported by workflow building
 
         if args.mode == "workflow":
@@ -2695,8 +2701,6 @@ def build(args):
             args.mode = get_mode(args)
 
         handle_arg_conflicts(args)
-        if args.nextflow and args.repository:
-            subprocess.check_call(['dx', 'run', 'applet-GF419100k25ZQXKQ972V4G00', f'-irepository_url={args.repository}', '--brief', '--priority', 'high', '-y'])
         if args.mode in ("app", "applet"):
             dx_build_app.build(args)
         elif args.mode in ("workflow", "globalworkflow"):

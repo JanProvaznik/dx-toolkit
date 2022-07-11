@@ -1,7 +1,7 @@
 import os
 from dxpy.nextflow.nextflow_templates import *
 import tempfile
-
+import dxpy
 DXAPP_CONTENT = get_nextflow_dxapp()
 
 
@@ -23,7 +23,31 @@ def write_dxapp(folder):
 Creates files needed for nextflow applet build and returns folder with these files.
 Note that folder is created as a tempfile
 '''
+def build_pipeline_from_repository(args=None):
+    build_project_id = dxpy.WORKSPACE_ID
+    if build_project_id is None:
+        parser.error("Can't create an applet without specifying a destination project; please use the -d/--destination flag to explicitly specify a project")
+    input_hash = {
+        "repository_url": args.repository,
+    }
 
+    api_options = {
+        "name": "Nextflow build of %s" % (args.repository),
+        "input": input_hash,
+        "project": build_project_id,
+    }
+    # TODO: this will have to be an app app_run!
+    app_run_result = dxpy.api.applet_run('applet-GF6201Q0k25yz8pJ7Qj0zqpy', input_params=api_options)
+    job_id = app_run_result["id"]
+    print("Started builder job %s" % (job_id,))
+    dxpy.DXJob(job_id).wait_on_done(interval=1)
+    applet_id, _ = dxpy.get_dxlink_ids(dxpy.api.job_describe(job_id)['output']['output_applet'])
+    return applet_id
+    subprocess.check_call(
+        ['dx', 'run', 'applet-GF419100k25ZQXKQ972V4G00', f'-irepository_url={args.repository}', '--brief', '--priority',
+         'high', '-y'])
+
+    ...
 
 def prepare_nextflow(args=None) -> str:
     dxapp_dir = tempfile.mkdtemp(prefix="dx.nextflow.")

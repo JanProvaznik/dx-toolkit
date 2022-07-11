@@ -1024,14 +1024,14 @@ def _build_app(args, extra_args):
             sys.exit(3)
 
         return output['id']
+    source_dir = args.src_dir
+    if args.nextflow:
+        source_dir = prepare_nextflow(args)
 
     if not args.remote:
         # LOCAL BUILD
         # change nextflow HERE TODO:
         try:
-            source_dir = args.src_dir
-            if args.nextflow:
-                source_dir = prepare_nextflow(args)
             output = build_and_upload_locally(
                 source_dir,
                 args.mode,
@@ -1076,17 +1076,6 @@ def _build_app(args, extra_args):
 
     else:
         # REMOTE BUILD
-
-        try:
-            app_json = _parse_app_spec(args.src_dir)
-            _check_suggestions(app_json, publish=args.publish)
-            _verify_app_source_dir(args.src_dir, args.mode)
-            if args.mode == "app" and not args.dry_run:
-                dxpy.executable_builder.verify_developer_rights('app-' + app_json['name'])
-        except dxpy.app_builder.AppBuilderException as e:
-            print("Error: %s" % (e.args,), file=sys.stderr)
-            sys.exit(3)
-
         # The following flags might be useful in conjunction with
         # --remote. To enable these, we need to learn how to pass these
         # options through to the interior call of dx_build_app(let).
@@ -1122,9 +1111,22 @@ def _build_app(args, extra_args):
         if not args.check_syntax:
             more_kwargs['do_check_syntax'] = False
         # TODO: remote nextflow repository
-        return _build_app_remote(args.mode, args.src_dir, destination_override=args.destination,
-                                 publish=args.publish, dx_toolkit_autodep=args.dx_toolkit_autodep,
-                                 region=region, watch=args.watch, **more_kwargs)
+        if args.nextflow:
+            return build_pipeline_from_repository(args)
+        else:
+            try:
+                app_json = _parse_app_spec(source_dir)
+                _check_suggestions(app_json, publish=args.publish)
+                _verify_app_source_dir(source_dir, args.mode)
+                if args.mode == "app" and not args.dry_run:
+                    dxpy.executable_builder.verify_developer_rights('app-' + app_json['name'])
+            except dxpy.app_builder.AppBuilderException as e:
+                print("Error: %s" % (e.args,), file=sys.stderr)
+                sys.exit(3)
+
+            return _build_app_remote(args.mode, source_dir, destination_override=args.destination,
+                                     publish=args.publish, dx_toolkit_autodep=args.dx_toolkit_autodep,
+                                     region=region, watch=args.watch, **more_kwargs)
 
 
 def build(args):
