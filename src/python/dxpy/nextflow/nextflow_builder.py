@@ -37,7 +37,7 @@ def build_pipeline_from_repository(args=None):
         "project": build_project_id,
     }
     # TODO: this will have to be an app app_run!
-    app_run_result = dxpy.api.applet_run('applet-GF62kjQ0k25VV3pkFYbvXFxb', input_params=api_options)
+    app_run_result = dxpy.api.applet_run('applet-GF6343j0k25kZ0jyFYYj2f87', input_params=api_options)
     job_id = app_run_result["id"]
     if not args.brief:
         print("Started builder job %s" % (job_id,))
