@@ -64,7 +64,7 @@ def get_nextflow_dxapp():
             "help": "Allow saving workspace and cache files to the platform to be used later for resume functionality.",
             "class": "boolean",
             "default": false
-        },
+        }
         ],
         "outputSpec": [
         ],
