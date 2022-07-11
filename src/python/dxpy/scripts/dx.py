@@ -36,7 +36,6 @@ decode_command_line_args()
 import dxpy
 from dxpy.scripts import dx_build_app
 from dxpy import workflow_builder
-from dxpy.nextflow import nextflow_builder
 from dxpy.exceptions import PermissionDenied, InvalidState, ResourceNotFound
 
 from ..cli import try_call, prompt_for_yn, INTERACTIVE_CLI
@@ -2697,14 +2696,7 @@ def build(args):
 
         handle_arg_conflicts(args)
         if args.nextflow and args.repository:
-            subprocess.check_call(['dx', 'run', 'applet-GF419100k25ZQXKQ972V4G00', f'-irepository_url={args.repository}', '--brief', '--priority', 'high' ])
-        if args.nextflow:
-            build_folder = nextflow_builder.prepare_nextflow(args)
-            if not args.src_dir.endswith("/"):
-                args.src_dir = args.src_dir + "/"
-            args.src_dir = args.src_dir + ".dx_nextflow"
-            print(args.src_dir)
-            print("nextflow applet build...")
+            subprocess.check_call(['dx', 'run', 'applet-GF419100k25ZQXKQ972V4G00', f'-irepository_url={args.repository}', '--brief', '--priority', 'high', '-y'])
         if args.mode in ("app", "applet"):
             dx_build_app.build(args)
         elif args.mode in ("workflow", "globalworkflow"):

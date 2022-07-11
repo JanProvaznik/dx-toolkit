@@ -1029,8 +1029,11 @@ def _build_app(args, extra_args):
         # LOCAL BUILD
         # change nextflow HERE TODO:
         try:
+            source_dir = args.src_dir
+            if args.nextflow:
+                source_dir = prepare_nextflow(args)
             output = build_and_upload_locally(
-                args.src_dir,
+                source_dir,
                 args.mode,
                 overwrite=args.overwrite,
                 archive=args.archive,
@@ -1118,7 +1121,7 @@ def _build_app(args, extra_args):
             more_kwargs['do_parallel_build'] = False
         if not args.check_syntax:
             more_kwargs['do_check_syntax'] = False
-
+        # TODO: remote nextflow repository
         return _build_app_remote(args.mode, args.src_dir, destination_override=args.destination,
                                  publish=args.publish, dx_toolkit_autodep=args.dx_toolkit_autodep,
                                  region=region, watch=args.watch, **more_kwargs)
