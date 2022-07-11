@@ -39,9 +39,14 @@ def build_pipeline_from_repository(args=None):
     # TODO: this will have to be an app app_run!
     app_run_result = dxpy.api.applet_run('applet-GF62KQj0k25f4v1Z7KgkFFKx', input_params=api_options)
     job_id = app_run_result["id"]
-    print("Started builder job %s" % (job_id,))
+    if not args.brief:
+        print("Started builder job %s" % (job_id,))
     dxpy.DXJob(job_id).wait_on_done(interval=1)
     applet_id, _ = dxpy.get_dxlink_ids(dxpy.api.job_describe(job_id)['output']['output_applet'])
+    if args.brief:
+        print("Created Nextflow pipeline %s from %s repository" % (applet_id, args.repository))
+    else
+        print(applet_id)
     return applet_id
     # subprocess.check_call(
     #     ['dx', 'run', 'applet-GF419100k25ZQXKQ972V4G00', f'-irepository_url={args.repository}', '--brief', '--priority',
