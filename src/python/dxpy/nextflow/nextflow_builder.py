@@ -45,7 +45,7 @@ def build_pipeline_from_repository(args=None):
     applet_id, _ = dxpy.get_dxlink_ids(dxpy.api.job_describe(job_id)['output']['output_applet'])
     if args.brief:
         print("Created Nextflow pipeline %s from %s repository" % (applet_id, args.repository))
-    else
+    else:
         print(applet_id)
     return applet_id
     # subprocess.check_call(
