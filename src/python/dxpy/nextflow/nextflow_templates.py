@@ -108,5 +108,5 @@ def get_nextflow_src():
     #!/usr/bin/env bash
     curl -s https://get.nextflow.io | bash
     mv nextflow /usr/bin
-    nextflow run /
+    nextflow run / $nf_run_args_and_pipeline_params
     '''
