@@ -992,11 +992,10 @@ def _build_app(args, extra_args):
     """
     # TODO: nextflow changes
     resources_dir = None
+    source_dir = args.src_dir
     if args.nextflow:
         resources_dir = args.src_dir
-        # TODO: changes args dir.
-        args.src_dir = prepare_nextflow(args)# create tmp dir and create dxapp + src
-
+        source_dir = prepare_nextflow(args)
     if args._from:
         # BUILD FROM EXISTING APPLET
         try:
@@ -1024,9 +1023,6 @@ def _build_app(args, extra_args):
             sys.exit(3)
 
         return output['id']
-    source_dir = args.src_dir
-    if args.nextflow:
-        source_dir = prepare_nextflow(args)
 
     if not args.remote:
         # LOCAL BUILD

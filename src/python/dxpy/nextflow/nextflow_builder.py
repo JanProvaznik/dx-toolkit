@@ -55,3 +55,16 @@ def prepare_nextflow(args=None) -> str:
     write_exec(dxapp_dir)
 
     return dxapp_dir
+
+
+def check_if_file_exists(path):
+    # schema and main.nf
+    return True
+
+def parse_schema():
+    # nexflow_schema.json in src_dir
+    # if not brief, print number of arguments (nf-core?)
+    # add arguments
+    # no type -> string?
+    # is output array of files?
+
