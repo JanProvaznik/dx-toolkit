@@ -67,4 +67,5 @@ def parse_schema():
     # add arguments
     # no type -> string?
     # is output array of files?
+    ...
 
